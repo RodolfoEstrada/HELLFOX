@@ -1,0 +1,112 @@
+<!-- FILTROS Y TABLA DE FÚTBOL INTERACTIVA -->
+<section id="tabla-fixture" style="padding: 2rem; background: #1a1a1e; border-radius: 10px; margin: 2rem 0;">
+  <h2 style="color: #ff4500; text-align: center; margin-bottom: 1.5rem; text-transform: uppercase;">
+    📅 Calendario y Tabla de Posiciones
+  </h2>
+
+  <!-- Barra de Filtros -->
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-bottom: 2rem;">
+    <div>
+      <label for="select-liga" style="color: #a1a1a6; font-weight: bold; display: block; margin-bottom: 0.3rem;">Liga:</label>
+      <select id="select-liga" onchange="actualizarTabla()" style="background: #0f0f11; color: #fff; padding: 0.6rem 1rem; border: 1px solid #ff4500; border-radius: 6px; font-size: 1rem;">
+        <option value="LIGA-UNIDAS">Liga Local Premier</option>
+        <option value="copa-juvenil">Copa Juvenil Telmex</option>
+        <option value="torneo-clausura">Torneo Clausura</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="select-categoria" style="color: #a1a1a6; font-weight: bold; display: block; margin-bottom: 0.3rem;">Categoría:</label>
+      <select id="select-categoria" onchange="actualizarTabla()" style="background: #0f0f11; color: #fff; padding: 0.6rem 1rem; border: 1px solid #ff4500; border-radius: 6px; font-size: 1rem;">
+        <option value="libre">Libre / Mayor</option>
+        <option value="sub13">Sub-13</option>
+        <option value="sub15">Sub-15</option>
+        <option value="sub17">Sub-17</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Contenedor del Calendario de Próximos Partidos -->
+  <div style="margin-bottom: 2.5rem;">
+    <h3 style="color: #fff; border-bottom: 2px solid #ff4500; padding-bottom: 0.5rem; margin-bottom: 1rem;">
+      ⚔️ Próximos Rivales
+    </h3>
+    <div id="contenedor-partidos" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+      <!-- Se llena dinámicamente con JS -->
+    </div>
+  </div>
+
+  <!-- Contenedor de la Tabla de Posiciones -->
+  <div>
+    <h3 style="color: #fff; border-bottom: 2px solid #ff4500; padding-bottom: 0.5rem; margin-bottom: 1rem;">
+      🏆 Tabla General
+    </h3>
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; color: #fff; text-align: center;">
+        <thead>
+          <tr style="background: #2a2a30; color: #ff4500; font-size: 0.9rem;">
+            <th style="padding: 0.8rem;">Pos</th>
+            <th style="padding: 0.8rem; text-align: left;">Equipo</th>
+            <th style="padding: 0.8rem;">PJ</th>
+            <th style="padding: 0.8rem;">PG</th>
+            <th style="padding: 0.8rem;">PE</th>
+            <th style="padding: 0.8rem;">PP</th>
+            <th style="padding: 0.8rem;">GF</th>
+            <th style="padding: 0.8rem;">GC</th>
+            <th style="padding: 0.8rem;">DIF</th>
+            <th style="padding: 0.8rem;">PTS</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-cuerpo">
+          <!-- Se llena dinámicamente con JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Script para cambiar los datos según la combinación seleccionada -->
+<script>
+  // Reemplaza este enlace con la URL que te dio Google Apps Script
+  const URL_GOOGLE_SHEETS = "https://script.google.com/macros/s/AKfycbxqslkxaQzyvVTvYqnfaN0s_UDqAFmk584Tmrzp-2YtDQLibhhzyML-Hp0M5a9yjTGs_Q/exec";
+
+  async function cargarTablaDesdeSheets() {
+    const tablaCuerpo = document.getElementById("tabla-cuerpo");
+    tablaCuerpo.innerHTML = `<tr><td colspan="10" style="padding:1rem; text-align:center;">Cargando tabla...</td></tr>`;
+
+    try {
+      const respuesta = await fetch(URL_GOOGLE_SHEETS);
+      const data = await respuesta.json();
+
+      tablaCuerpo.innerHTML = ""; // Limpiar mensaje de carga
+
+      data.forEach(t => {
+        // Destaca a HellFox FC en color naranja
+        const esHellFox = String(t.equipo).toLowerCase().includes("hellfox");
+        const filaEstilo = esHellFox 
+          ? "background: rgba(255, 69, 0, 0.25); font-weight: bold;" 
+          : "border-bottom: 1px solid #2a2a30;";
+
+        tablaCuerpo.innerHTML += `
+          <tr style="${filaEstilo}">
+            <td style="padding: 0.7rem;">${t.pos}</td>
+            <td style="padding: 0.7rem; text-align: left;">${t.equipo}</td>
+            <td style="padding: 0.7rem;">${t.pj}</td>
+            <td style="padding: 0.7rem;">${t.pg}</td>
+            <td style="padding: 0.7rem;">${t.pe}</td>
+            <td style="padding: 0.7rem;">${t.pp}</td>
+            <td style="padding: 0.7rem;">${t.gf}</td>
+            <td style="padding: 0.7rem;">${t.gc}</td>
+            <td style="padding: 0.7rem;">${t.dif}</td>
+            <td style="padding: 0.7rem; color: #ff4500; font-weight: bold;">${t.pts}</td>
+          </tr>
+        `;
+      });
+    } catch (error) {
+      tablaCuerpo.innerHTML = `<tr><td colspan="10" style="padding:1rem; color:red;">Error al cargar los datos desde Google Sheets.</td></tr>`;
+    }
+  }
+
+  // Cargar datos automáticamente al abrir o recargar la página
+  cargarTablaDesdeSheets();
+</script>
