@@ -10,8 +10,8 @@
 :root{
   --red:#d71920;
   --red2:#8e0e13;
-  --black:#070707;
-  --panel:#111111;
+  --black:#050505;
+  --panel:#0f0f11;
   --line:#292929;
   --white:#f4f4f4;
   --muted:#a0a0a0;
@@ -24,6 +24,7 @@ body{
     #050505;
   color:var(--white);
   font-family:'Barlow Condensed',Arial,sans-serif;
+  overflow-x: hidden;
 }
 body:before{
   content:"";
@@ -34,27 +35,55 @@ body:before{
 a{text-decoration:none;color:inherit}
 .container{width:min(1180px,92%);margin:auto}
 
-/* NAV */
+/* NAV OPTIMIZADO */
 header{
-  position:sticky;top:0;z-index:20;
-  height:72px;background:rgba(5,5,5,.94);
-  border-bottom:1px solid #242424;backdrop-filter:blur(10px);
+  position:sticky;top:0;z-index:100;
+  height:68px;background:rgba(5,5,5,.98);
+  border-bottom:1px solid #1a1a1a;
+  backdrop-filter:blur(10px);
 }
-.nav{height:100%;display:flex;align-items:center;gap:34px}
-.brand{display:flex;align-items:center;gap:12px;margin-right:auto}
+.nav{height:100%;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px}
 .logo-img{
-  width:62px;height: 68px;px;position:relative;
-  border:2px solid var(--red);
-  clip-path:polygon(50% 0,100% 25%,84% 100%,50% 77%,16% 100%,0 25%);
-  background:linear-gradient(145deg,#24080a,#080808);
+  height:42px;
+  width:auto;
+  object-fit:contain;
+  display:block;
 }
-.logo:after{content:"";position:absolute;inset:7px 11px;border-left:2px solid var(--red);border-right:2px solid var(--red);transform:skewY(-12deg)}
-.brand b{font:700 27px 'Oswald';letter-spacing:1px}
-.navlinks{display:flex;gap:25px;align-items:center}
-.navlinks a{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#d2d2d2}
-.navlinks a.active,.navlinks a:hover{color:#fff}
-.navlinks a.active{border-bottom:2px solid var(--red);padding-bottom:24px;margin-bottom:-26px}
-.join{background:var(--red);padding:13px 25px;clip-path:polygon(8% 0,100% 0,94% 100%,0 100%);font-weight:700;text-transform:uppercase}
+.brand b{font:700 24px 'Oswald',sans-serif;letter-spacing:1.2px;color:#fff;text-transform:uppercase}
+.navlinks{display:flex;gap:20px;align-items:center;height:100%}
+.navlinks a{
+  font-family:'Oswald',sans-serif;
+  font-size:11.5px;
+  font-weight:500;
+  text-transform:uppercase;
+  letter-spacing:0.7px;
+  color:#d2d2d2;
+  transition:color 0.2s;
+  position:relative;
+  display:flex;
+  align-items:center;
+  height:100%;
+  padding:0 2px;
+}
+.navlinks a:hover, .navlinks a.active{color:#fff}
+.navlinks a.active::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:2px;
+  background-color:var(--red);
+}
+.join{
+  background:var(--red);
+  padding:8px 20px;
+  clip-path:polygon(12% 0, 100% 0, 88% 100%, 0 100%);
+  font-family:'Oswald',sans-serif;
+  font-weight:700;
+  font-size:15px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
 .menu{display:none}
 
 /* HERO */
@@ -77,9 +106,33 @@ h1{font:700 clamp(55px,7vw,88px)/.86 'Oswald';text-transform:uppercase}
 h1 span{color:var(--red);display:block}
 .hero p{margin:24px 0;color:#aaa;letter-spacing:2px;text-transform:uppercase}
 .actions{display:flex;gap:14px}
-.btn{padding:15px 24px;text-transform:uppercase;font-weight:700;letter-spacing:1px;border:1px solid #444}
+.btn{padding:15px 24px;text-transform:uppercase;font-weight:700;letter-spacing:1px;border:1px solid #444;transition:0.2s;display:inline-block;}
 .btn.primary{background:var(--red);border-color:var(--red)}
 .btn:hover{transform:translateY(-2px)}
+
+/* BOTÓN VER TABLA REDUCIDO */
+.btn-ver-tabla {
+  padding: 6px 14px;
+  background: transparent;
+  border: 1px solid var(--red);
+  color: #fff;
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 2px;
+}
+
+.btn-ver-tabla:hover {
+  background: var(--red);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px rgba(215, 25, 32, 0.4);
+}
 
 /* ABSTRACT TEAM */
 .team-visual{position:absolute;right:0;bottom:0;width:55%;height:100%;overflow:hidden}
@@ -97,19 +150,168 @@ h1 span{color:var(--red);display:block}
   box-shadow:0 15px 30px #000;border:1px solid #333
 }
 
-/* CARDS */
+/* CARDS & LOGOS */
 .stats{margin-top:-38px;position:relative;z-index:5}
-.grid3{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}
 .card{background:linear-gradient(145deg,#171717,#0d0d0d);border:1px solid var(--line);padding:25px;min-height:165px;position:relative}
 .card:before{content:"";position:absolute;top:0;left:0;width:55px;height:3px;background:var(--red)}
 .label{font-size:13px;text-transform:uppercase;letter-spacing:2px;color:#bbb;margin-bottom:18px}
-.score{font:600 34px 'Oswald';display:flex;align-items:center;justify-content:center;gap:22px}
+.score{font:600 34px 'Oswald';display:flex;align-items:center;justify-content:center;gap:22px;text-align:center;}
 .small{font-size:12px;color:#888;text-transform:uppercase;letter-spacing:1px}
-.match{display:flex;justify-content:space-between;align-items:center;text-align:center}
-.team-logo{width:52px;height:61px;margin:auto;background:#090909;border:1px solid #444;clip-path:polygon(50% 0,92% 18%,85% 76%,50% 100%,15% 76%,8% 18%);display:grid;place-items:center;color:var(--red);font-weight:800}
-.shield{width:53px;height:62px;margin:auto;background:#090909;border:1px solid #444;clip-path:polygon(50% 0,92% 18%,85% 76%,50% 100%,15% 76%,8% 18%);display:grid;place-items:center;color:var(--red);font-weight:800}
-.table-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #252525}
-.table-row:last-child{border:0}
+
+/* ESCUDOS DINÁMICOS Y FALLBACK */
+.shield{
+  width:53px;
+  height:62px;
+  margin:auto;
+  background:#090909;
+  border:1px solid #444;
+  clip-path:polygon(50% 0,92% 18%,85% 76%,50% 100%,15% 76%,8% 18%);
+  display:grid;
+  place-items:center;
+  color:var(--red);
+  font-weight:800;
+}
+.shield-img {
+  width: auto;
+  max-width: 55px;
+  height: 55px;
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
+}
+
+/* RIVALES EN VIVO */
+.rivales-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 10px;
+}
+.match-card-mini {
+  background: linear-gradient(145deg, #141416, #09090a);
+  border: 1px solid var(--line);
+  padding: 16px;
+  position: relative;
+  border-radius: 4px;
+}
+.match-card-mini::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--red);
+}
+.match-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #222;
+  padding-bottom: 5px;
+}
+.match-teams-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+.team-mini-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.team-mini-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+/* RECTÁNGULO / PANEL DE TABLA GENERAL EN VIVO */
+.panel-tabla-box {
+  background: linear-gradient(145deg, #121214, #080809);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 24px;
+  margin: 28px 0;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.panel-tabla-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--red), transparent);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #222;
+  padding-bottom: 12px;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.panel-title {
+  font: 700 22px 'Oswald', sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.panel-title span {
+  color: var(--red);
+}
+
+.tabla-scroll {
+  overflow-x: auto;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tabla-live {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 14px;
+}
+
+.tabla-live thead tr {
+  background: #18181c;
+  color: var(--red);
+  font-family: 'Oswald', sans-serif;
+  font-size: 15px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #2a2a30;
+}
+
+.tabla-live th, .tabla-live td {
+  padding: 10px 12px;
+}
+
+.tabla-live tbody tr {
+  border-bottom: 1px solid #1c1c20;
+  transition: background 0.2s;
+}
+
+.tabla-live tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
 
 /* FEATURE TILES */
 .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0 28px}
@@ -120,32 +322,140 @@ h1 span{color:var(--red);display:block}
 .tile h3{font:600 25px 'Oswald';text-transform:uppercase}
 .tile p{font-size:12px;color:#999;text-transform:uppercase;letter-spacing:1px}
 
-/* ACADEMY */
-.academy{
-  min-height:245px;border:1px solid #292929;position:relative;overflow:hidden;
-  padding:45px 50px;margin-bottom:28px;
-  background:
-    linear-gradient(90deg,#080808 0%,rgba(8,8,8,.82) 42%,rgba(8,8,8,.35)),
-    radial-gradient(ellipse at 78% 50%,rgba(100,100,100,.25),transparent 35%);
+/* ACADEMY - IMAGEN DE FONDO AJUSTADA */
+/* CONTENEDOR MÁS COMPACTO Y CENTRADO */
+/* CONTENEDOR COMPACTO */
+/* CONTENEDOR CONTENIDO */
+/* BANNER ACADEMY CON LA NUEVA IMAGEN COMPLETA */
+.academy {
+  min-height: 280px;
+  max-width: 1000px;
+  margin: 0 auto 28px auto;
+  border: 1px solid #292929;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  padding: 40px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  
+  /* Imagen de fondo abarcando toda la tarjeta */
+  background-image: 
+    linear-gradient(90deg, rgba(5, 5, 5, 0.9) 0%, rgba(5, 5, 5, 0.4) 50%, rgba(5, 5, 5, 0.1) 100%),
+    url('academy_hero.png'); /* Guarda tu nueva foto con este nombre */
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
 }
-.academy:after{content:"10";position:absolute;right:8%;bottom:-40px;font:800 220px 'Oswald';color:rgba(255,255,255,.045)}
-.academy h2{font:700 50px 'Oswald';text-transform:uppercase}
-.academy h2 span{color:var(--red)}
-.academy p{color:#aaa;letter-spacing:2px;text-transform:uppercase;margin:9px 0 22px}
 
-/* NEWS */
-.section-head{display:flex;justify-content:space-between;align-items:end;margin:34px 0 15px}
-.section-head h2{font:600 28px 'Oswald';text-transform:uppercase}
-.section-head a{color:#aaa;text-transform:uppercase;font-size:12px}
-.news{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:40px}
-.news-card{border:1px solid #292929;background:#0c0c0c;overflow:hidden}
-.news-img{height:160px;background:linear-gradient(135deg,#343434,#0b0b0b 50%,#5e090d)}
-.news-card:nth-child(2) .news-img{background:linear-gradient(160deg,#252525,#111 50%,#3b3b3b)}
-.news-card:nth-child(3) .news-img{background:linear-gradient(150deg,#444,#111 50%,#1d0506)}
-.news-body{padding:19px}
-.date{font-size:11px;color:#888;letter-spacing:1px}
-.news-body h3{font:600 22px 'Oswald';text-transform:uppercase;margin:8px 0}
-.news-body p{font-size:14px;color:#aaa}
+/* Eliminamos el pseudo-elemento :after para quitar a los 3 chicos */
+.academy:after {
+  display: none;
+}
+
+/* ESTILOS DEL TEXTO Y BOTÓN SOBRE EL NUEVO FONDO */
+.academy h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1;
+  position: relative;
+  z-index: 2;
+  letter-spacing: 1.5px;
+}
+
+.academy h2 span {
+  color: var(--red);
+}
+
+.academy p {
+  color: #d0d0d0;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin: 10px 0 22px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.academy .btn.primary {
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 15px rgba(215, 25, 32, 0.4);
+}
+/* CARRUSEL DE NOTICIAS INFINITO */
+.noticias-section { margin: 35px 0 40px; }
+.noticias-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 10px;
+}
+.noticias-header h2 { font: 600 28px 'Oswald', sans-serif; text-transform: uppercase; color: #fff; }
+.carousel-controls { display: flex; gap: 8px; }
+.btn-scroll {
+  background: #0f0f11;
+  border: 1px solid #2a2a30;
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.btn-scroll:hover { background: var(--red); border-color: var(--red); }
+.carousel-container {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 5px 0 10px;
+}
+.carousel-container::-webkit-scrollbar { display: none; }
+.news-card-carrusel {
+  flex: 0 0 calc(33.333% - 11px);
+  min-width: 290px;
+  background: #0c0c0c;
+  border: 1px solid #292929;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.news-card-carrusel:hover { transform: translateY(-4px); border-color: var(--red); }
+.card-img-wrapper { height: 160px; background-size: cover; background-position: center; background-color: #171717; }
+.card-content { padding: 18px; display: flex; flex-direction: column; gap: 6px; flex-grow: 1; }
+.card-date-str { font-size: 11px; color: #888; letter-spacing: 1px; font-family: 'Barlow Condensed', sans-serif; }
+.card-content h3 { font: 600 20px 'Oswald', sans-serif; text-transform: uppercase; color: #fff; line-height: 1.2; }
+.card-content p { font-size: 13.5px; color: #aaa; line-height: 1.35; }
+
+.card-more {
+  background: linear-gradient(135deg, #0c0c0c 0%, #161616 100%);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  border: 1px dashed #3a3a3a;
+}
+.card-more:hover { background: var(--red); border-style: solid; }
+.more-wrapper { padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.more-icon { font-size: 2rem; color: var(--red); transition: color 0.2s, transform 0.2s; }
+.card-more:hover .more-icon { color: #fff; transform: translateX(5px); }
+.card-more h3 { font: 700 22px 'Oswald', sans-serif; text-transform: uppercase; color: #fff; }
+.card-more p { font-size: 12px; color: #888; text-transform: uppercase; }
+.card-more:hover p { color: #eee; }
 
 /* FOOTER */
 footer{border-top:1px solid #262626;background:#080808;padding:42px 0 18px}
@@ -157,17 +467,17 @@ footer a,footer p{display:block;color:#999;font-size:13px;margin:8px 0}
 .copyright{border-top:1px solid #222;margin-top:35px;padding-top:15px;color:#666;font-size:12px;display:flex;justify-content:space-between}
 
 @media(max-width:850px){
-  .navlinks{display:none}.menu{display:block;font-size:25px}
+  .navlinks{display:none}.menu{display:block;font-size:25px;cursor:pointer;color:#fff;}
   .hero-content{width:85%}.team-visual{opacity:.4;width:100%}
   .grid3{grid-template-columns:1fr}.tiles{grid-template-columns:1fr 1fr}
-  .news{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .news-card-carrusel { flex: 0 0 calc(50% - 8px); }
 }
 @media(max-width:520px){
   .tiles{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}
   .academy{padding:30px 25px}.academy h2{font-size:38px}
   .hero{min-height:580px}.actions{flex-direction:column;width:210px}
-  
-
+  .news-card-carrusel { flex: 0 0 85%; }
 }
 </style>
 </head>
@@ -176,10 +486,13 @@ footer a,footer p{display:block;color:#999;font-size:13px;margin:8px 0}
 <header>
   <div class="container nav">
     <a class="brand" href="#"><img class="logo-img" src="hellfox300.png" alt="HellFox FC"><b>HELLFOX FC</b></a>
-    <nav class="navlinks">
-      <a class="active" href="#">Inicio</a><a href="#club">Club</a><a href="#plantilla">Plantilla</a>
-      <a href="#estadisticas">Estadísticas</a><a href="#jornadas">Jornadas</a><a href="#academia">Academia</a>
-      <a href="#noticias">Noticias</a><a href="#galeria">Galería</a><a href="#contacto">Contacto</a>
+    <nav class="navlinks" id="navlinks">
+      <a class="active" href="#inicio">Inicio</a>
+      <a href="#club">Club</a>
+      <a href="#plantilla">Plantilla</a>
+      <a href="#estadisticas">Estadísticas</a>
+      <a href="tabla.html">Jornadas</a>
+      <a href="#contacto">Contacto</a>
     </nav>
     <a class="join" href="#contacto">Únete →</a>
     <div class="menu">☰</div>
@@ -205,28 +518,57 @@ footer a,footer p{display:block;color:#999;font-size:13px;margin:8px 0}
 
 <section class="container stats" id="jornadas">
   <div class="grid3">
+    
     <article class="card">
-      <div class="label">▣ &nbsp; Próximo partido</div>
-      <div class="match">
-        <div><img class="team-logo" src="hellfox5.png" alt="HellFox FC"><b>HELLFOX FC</b><div class="small">Local</div></div>
-        <strong>VS</strong>
-        <div><div class="shield">LF</div><b>LA FRANJA FC</b><div class="small">Visitante</div></div>
+      <div class="label">▣ &nbsp; Próximos Rivales</div>
+      <div id="contenedor-rivales" class="rivales-grid">
+        <p style="color:#aaa; font-size:12px;">Cargando próximos partidos...</p>
       </div>
-      <p class="small" style="text-align:center;margin-top:15px">Domingo 14 de Junio · 8:00 AM · Campos Premier, Querétaro</p>
+      <p style="text-align:right;color:#ccc;font-size:12px;text-transform:uppercase;margin-top:12px">
+        <a href="tabla.html">Ver calendario completo →</a>
+      </p>
     </article>
 
     <article class="card" id="estadisticas">
       <div class="label">▥ &nbsp; Último resultado</div>
-      <div class="score"><span>HELLFOX</span> <b>2 — 3</b> <span>REAL<br>QUERÉTARO</span></div>
-      <p class="small" style="text-align:center;margin-top:25px">Jornada 3 · 8 de Junio, 2026</p>
+      <div class="score" id="marcador-ultimo-partido">
+        <span style="font-size:16px; color:#aaa;">Cargando marcador...</span>
+      </div>
+      <p class="small" id="meta-ultimo-partido" style="text-align:center;margin-top:25px">--</p>
     </article>
 
-    <article class="card">
-      <div class="label">▣ &nbsp; Tabla general</div>
-      <div class="table-row"><span>POS. &nbsp; EQUIPO</span><span>PJ &nbsp; PTS</span></div>
-      <div class="table-row"><b>1 &nbsp; HellFox FC</b><b>4 &nbsp;&nbsp; 12</b></div>
-      <p style="text-align:right;color:#ccc;font-size:12px;text-transform:uppercase;margin-top:12px">Ver tabla completa →</p>
-    </article>
+  </div>
+</section>
+
+<section class="container">
+  <div class="panel-tabla-box">
+    <div class="panel-header">
+      <h3 class="panel-title">🏆 Tabla General <span>(En Vivo)</span></h3>
+      <a href="tabla.html" class="btn-ver-tabla">Ver tabla completa →</a>
+    </div>
+    <div class="tabla-scroll">
+      <table class="tabla-live">
+        <thead>
+          <tr>
+            <th>Pos</th>
+            <th style="text-align: left;">Equipo</th>
+            <th>PJ</th>
+            <th>PG</th>
+            <th>PE</th>
+            <th>PP</th>
+            <th>GF</th>
+            <th>GC</th>
+            <th>DIF</th>
+            <th style="color: #fff;">PTS</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpo-tabla-live">
+          <tr>
+            <td colspan="10" style="padding: 20px; color: #aaa;">Cargando tabla de posiciones...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
@@ -241,16 +583,64 @@ footer a,footer p{display:block;color:#999;font-size:13px;margin:8px 0}
   <section class="academy" id="academia">
     <h2>HELLFOX <span>ACADEMY</span></h2>
     <p>Disciplina hoy. Grandes jugadores mañana.</p>
-    <a class="btn primary" href="#">Conoce la academia &nbsp; →</a>
+    <!-- Enlace ajustado para abrir un PDF genérico de la academia -->
+    <a class="btn primary" href="HellFox Academy.pdf" target="_blank">Conoce la academia &nbsp; →</a>
   </section>
 
-  <div class="section-head" id="noticias">
-    <h2>Noticias destacadas</h2><a href="#">Ver todas →</a>
-  </div>
-  <section class="news">
-    <article class="news-card"><div class="news-img"></div><div class="news-body"><div class="date">05 SEP 2026</div><h3>UNETE AL EQUIPO HACIENDO HISTORIA</h3><p>Con doblete en la jornada 3, Eduardo Castañera se consolida como líder de goleo.</p></div></article>
-    <article class="news-card"><div class="news-img"></div><div class="news-body"><div class="date">5 JUN 2026</div><h3>Todo listo para el próximo encuentro</h3><p>HellFox FC se prepara para enfrentar a La Franja FC en Campos Premier.</p></div></article>
-    <article class="news-card"><div class="news-img"></div><div class="news-body"><div class="date">1 JUN 2026</div><h3>El grupo sigue más unido que nunca</h3><p>Trabajo, compromiso y una sola mentalidad: seguir creciendo.</p></div></article>
+  <section class="noticias-section" id="noticias">
+    <div class="noticias-header">
+      <h2>Noticias destacadas</h2>
+      <div class="carousel-controls">
+        <button class="btn-scroll" id="prevBtn">‹</button>
+        <button class="btn-scroll" id="nextBtn">›</button>
+      </div>
+    </div>
+
+    <div class="carousel-container" id="carousel">
+      <article class="news-card-carrusel">
+        <div class="card-img-wrapper" style="background-image: linear-gradient(135deg,#343434,#0b0b0b 50%,#5e090d);"></div>
+        <div class="card-content">
+          <span class="card-date-str">05 SEP 2026</span>
+          <h3>UNETE AL EQUIPO HACIENDO HISTORIA</h3>
+          <p>Con doblete en la jornada 3, Eduardo Castañera se consolida como líder de goleo.</p>
+        </div>
+      </article>
+
+      <article class="news-card-carrusel">
+        <div class="card-img-wrapper" style="background-image: linear-gradient(160deg,#252525,#111 50%,#3b3b3b);"></div>
+        <div class="card-content">
+          <span class="card-date-str">05 JUN 2026</span>
+          <h3>TODO LISTO PARA EL PRÓXIMO ENCUENTRO</h3>
+          <p>HellFox FC se prepara para enfrentar a La Franja FC en Campos Premier.</p>
+        </div>
+      </article>
+
+      <article class="news-card-carrusel">
+        <div class="card-img-wrapper" style="background-image: linear-gradient(150deg,#444,#111 50%,#1d0506);"></div>
+        <div class="card-content">
+          <span class="card-date-str">01 JUN 2026</span>
+          <h3>EL GRUPO SIGUE MÁS UNIDO QUE NUNCA</h3>
+          <p>Trabajo, compromiso y una sola mentalidad: seguir creciendo.</p>
+        </div>
+      </article>
+
+      <article class="news-card-carrusel">
+        <div class="card-img-wrapper" style="background-image: linear-gradient(135deg,#242424,#080808 60%,#4a0000);"></div>
+        <div class="card-content">
+          <span class="card-date-str">28 MAY 2026</span>
+          <h3>NUEVO REFUERZO PARA LA SQUAD</h3>
+          <p>Se incorpora un mediocampista ofensivo para potenciar el ataque.</p>
+        </div>
+      </article>
+
+      <a href="noticias.html" class="news-card-carrusel card-more">
+        <div class="more-wrapper">
+          <span class="more-icon">→</span>
+          <h3>VER MÁS NOTICIAS</h3>
+          <p>Explora todo el historial</p>
+        </div>
+      </a>
+    </div>
   </section>
 </section>
 </main>
@@ -259,21 +649,192 @@ footer a,footer p{display:block;color:#999;font-size:13px;margin:8px 0}
   <div class="container">
     <div class="footer-grid">
       <div><div class="footer-brand">HELLFOX <span>FC</span></div><p>Más que un equipo,<br>una identidad.</p></div>
-      <div><h4>Enlaces</h4><a href="#">Inicio</a><a href="#club">Club</a><a href="#plantilla">Plantilla</a><a href="#academia">Academia</a><a href="#noticias">Noticias</a></div>
-      <div><h4>Explora</h4><a href="#jornadas">Jornadas</a><a href="#estadisticas">Estadísticas</a><a href="#galeria">Galería</a><a href="#contacto">Contacto</a><a href="#">Tienda</a></div>
-      <div id="galeria"><h4>Síguenos</h4><p style="font-size:24px;color:#eee">◎　♪　▶　●</p><p>HellFox FC<br>Querétaro, México.</p></div>
+      <div><h4>Enlaces</h4><a href="index.html">Inicio</a><a href="#club">Club</a><a href="#plantilla">Plantilla</a><a href="#academia">Academia</a><a href="#noticias">Noticias</a></div>
+      <div><h4>Explora</h4><a href="tabla.html">Jornadas</a><a href="#estadisticas">Estadísticas</a><a href="#galeria">Galería</a><a href="#contacto">Contacto</a><a href="#">Tienda</a></div>
+      <div id="galeria"><h4>Síguenos</h4><p style="font-size:24px;color:#eee">◎ ♪ ▶ ●</p><p>HellFox FC<br>Querétaro, México.</p></div>
     </div>
     <div class="copyright"><span>© 2026 HellFox FC. Todos los derechos reservados.</span><span>Aviso de privacidad &nbsp;|&nbsp; Términos y condiciones</span></div>
   </div>
 </footer>
 
 <script>
+// Menú hamburguesa
 document.querySelector('.menu').addEventListener('click',()=>{
   const nav=document.querySelector('.navlinks');
   nav.style.display=nav.style.display==='flex'?'none':'flex';
-  nav.style.position='absolute';nav.style.top='72px';nav.style.left='0';nav.style.right='0';
+  nav.style.position='absolute';nav.style.top='68px';nav.style.left='0';nav.style.right='0';
   nav.style.padding='20px';nav.style.background='#090909';nav.style.flexDirection='column';
 });
+
+// Control del carrusel
+const carousel = document.getElementById('carousel');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+nextBtn.addEventListener('click', () => { carousel.scrollBy({ left: 320, behavior: 'smooth' }); });
+prevBtn.addEventListener('click', () => { carousel.scrollBy({ left: -320, behavior: 'smooth' }); });
+
+// URL de Google Apps Script
+const URL_GOOGLE_SHEETS = "https://script.google.com/macros/s/AKfycbxqslkxaQzyvVTvYqnfaN0s_UDqAFmk584Tmrzp-2YtDQLibhhzyML-Hp0M5a9yjTGs_Q/exec";
+
+// Cargar Datos de Google Sheets (Con soporte para Logos)
+async function cargarDatosGoogleSheets() {
+  const contenedorPartidos = document.getElementById("contenedor-rivales");
+  const cuerpoTabla = document.getElementById("cuerpo-tabla-live");
+  const marcadorContenedor = document.getElementById("marcador-ultimo-partido");
+  const metaUltimoPartido = document.getElementById("meta-ultimo-partido");
+
+  try {
+    const res = await fetch(URL_GOOGLE_SHEETS);
+    const responseData = await res.json();
+
+    const dataPartidos = responseData.partidos || responseData;
+    const dataTabla = responseData.tabla || responseData;
+
+    // 1. MAPEO DE LOGOS DESDE LA PESTAÑA "TABLA"
+    const mapaLogos = {};
+    if (Array.isArray(dataTabla)) {
+      dataTabla.forEach(item => {
+        if (item.equipo) {
+          const key = String(item.equipo).trim().toLowerCase();
+          mapaLogos[key] = item.logo || item.imagen || item.escudo || "";
+        }
+      });
+    }
+
+    // Función auxiliar para formatear URLs (admite Google Drive y archivos locales)
+    function procesarUrlLogo(url) {
+      if (!url || String(url).trim() === "") return "";
+      let urlLimpia = String(url).trim();
+      
+      // Convertir enlaces de Google Drive compartidos a visualización directa
+      if (urlLimpia.includes("drive.google.com") && urlLimpia.includes("/file/d/")) {
+        const match = urlLimpia.match(/\/file\/d\/([^\/]+)/);
+        if (match && match[1]) {
+          return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+        }
+      }
+      return urlLimpia;
+    }
+
+    // Función para obtener el HTML del escudo (Imagen o Escudo Negro Fallback)
+    function obtenerEscudoHTML(nombreEquipo, textoFallback) {
+      const key = String(nombreEquipo || "").trim().toLowerCase();
+      const rawLogo = mapaLogos[key];
+      const urlFinal = procesarUrlLogo(rawLogo);
+
+      if (urlFinal !== "") {
+        return `<img src="${urlFinal}" alt="${nombreEquipo}" class="shield-img" onError="this.onerror=null; this.outerHTML='<div class=\\'shield\\'>${textoFallback}</div>';">`;
+      }
+      return `<div class="shield">${textoFallback}</div>`;
+    }
+
+    // 2. ÚLTIMO RESULTADO
+    const partidosJugados = dataPartidos.filter(p => p.goles_local !== undefined && p.goles_local !== null && p.goles_local !== "");
+
+    if (partidosJugados.length > 0) {
+      const ultimo = partidosJugados[partidosJugados.length - 1];
+      const gl = Number(ultimo.goles_local);
+      const gv = Number(ultimo.goles_visita);
+      
+      marcadorContenedor.innerHTML = `
+        <span>${ultimo.local || 'LOCAL'}</span> 
+        <b>${gl} — ${gv}</b> 
+        <span>${ultimo.visita || 'VISITA'}</span>
+      `;
+      metaUltimoPartido.innerText = `${ultimo.jornada || 'Jornada'} · ${ultimo.fecha || 'Fecha por definir'}`;
+    } else {
+      marcadorContenedor.innerHTML = `<span style="font-size:18px;">SIN PARTIDOS JUGADOS</span>`;
+      metaUltimoPartido.innerText = `--`;
+    }
+
+    // 3. PRÓXIMOS RIVALES (Muestra imágenes desde Google Sheets)
+    contenedorPartidos.innerHTML = "";
+    const proximos = dataPartidos
+      .filter(p => p.goles_local === undefined || p.goles_local === null || p.goles_local === "")
+      .slice(0, 2);
+
+    if (proximos.length > 0) {
+      proximos.forEach(p => {
+        const logoLocal = obtenerEscudoHTML(p.local, p.local_shield || 'HF');
+        const logoVisita = obtenerEscudoHTML(p.visita, p.visita_shield || 'RIV');
+
+        contenedorPartidos.innerHTML += `
+          <article class="match-card-mini">
+            <div class="match-meta">
+              <span style="color:var(--red); font-weight:bold;">${p.jornada || 'Jornada'}</span>
+              <span>${p.fecha || 'POR DEFINIR'}</span>
+            </div>
+            <div class="match-teams-row">
+              <div class="team-mini-box">
+                ${logoLocal}
+                <span class="team-mini-name">${p.local || 'HellFox FC'}</span>
+              </div>
+              <strong style="color:var(--red); font-size: 16px;">VS</strong>
+              <div class="team-mini-box">
+                ${logoVisita}
+                <span class="team-mini-name">${p.visita || 'Rival'}</span>
+              </div>
+            </div>
+          </article>
+        `;
+      });
+    } else {
+      contenedorPartidos.innerHTML = `<p style="color:#aaa; font-size:12px;">No hay próximos partidos programados.</p>`;
+    }
+
+    // 4. TABLA GENERAL DE POSICIONES
+    const tablaOrdenada = [...dataTabla]
+      .filter(t => t.equipo)
+      .sort((a, b) => Number(b.pts) - Number(a.pts))
+      .map((t, idx) => ({ ...t, posReal: idx + 1 }));
+
+    let tablaCuatro = [];
+    const indexHellfox = tablaOrdenada.findIndex(t => String(t.equipo).toLowerCase().includes("hellfox"));
+
+    if (indexHellfox !== -1 && indexHellfox >= 4) {
+      tablaCuatro = [...tablaOrdenada.slice(0, 3), tablaOrdenada[indexHellfox]];
+    } else {
+      tablaCuatro = tablaOrdenada.slice(0, 4);
+    }
+
+    cuerpoTabla.innerHTML = "";
+    tablaCuatro.forEach((t) => {
+      const esHellFox = String(t.equipo).toLowerCase().includes("hellfox");
+      const bgStyle = esHellFox 
+        ? "background: rgba(215, 25, 32, 0.2); font-weight: bold;" 
+        : "";
+
+      const rawLogo = t.logo || t.imagen || t.escudo;
+      const urlLogo = procesarUrlLogo(rawLogo);
+      const logoMini = urlLogo 
+        ? `<img src="${urlLogo}" alt="" style="height:20px; width:20px; object-fit:contain; vertical-align:middle; margin-right:8px; display:inline-block;">` 
+        : "";
+
+      cuerpoTabla.innerHTML += `
+        <tr style="${bgStyle}">
+          <td style="font-weight: 700; color: #aaa;">${t.posReal}</td>
+          <td style="text-align: left; color: #fff; font-weight: 600;">${logoMini}${t.equipo}</td>
+          <td style="color: #ccc;">${t.pj || 0}</td>
+          <td style="color: #ccc;">${t.pg || 0}</td>
+          <td style="color: #ccc;">${t.pe || 0}</td>
+          <td style="color: #ccc;">${t.pp || 0}</td>
+          <td style="color: #ccc;">${t.gf || 0}</td>
+          <td style="color: #ccc;">${t.gc || 0}</td>
+          <td style="color: #ccc;">${t.dif || 0}</td>
+          <td style="color: var(--red); font-weight: 800; font-size: 16px;">${t.pts || 0}</td>
+        </tr>
+      `;
+    });
+
+  } catch (err) {
+    contenedorPartidos.innerHTML = `<p style="color:var(--red); font-size:12px;">Error al cargar datos.</p>`;
+    cuerpoTabla.innerHTML = `<tr><td colspan="10" style="color:var(--red); padding:20px;">Error al conectar con Google Sheets.</td></tr>`;
+    marcadorContenedor.innerHTML = `<span style="font-size:16px; color:var(--red);">Error de conexión</span>`;
+  }
+}
+
+cargarDatosGoogleSheets();
 </script>
 </body>
 </html>
